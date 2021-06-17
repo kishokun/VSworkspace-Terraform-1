@@ -32,6 +32,9 @@ pipeline{
 		//Stage3 : publish the artifacts to Nexus
 		stage ('Publish to Nexus') {
 		    steps {
+                script {
+
+               def NexusRepo = Version.endsWith("SNAPSHOT") ? "KurusDevOpsLab-SNAPSHOT" : "KurusDevOpsLab-RELEASE
 			   nexusArtifactUploader artifacts: 
                [[artifactId: "${ArtifactId}", 
                classifier: '', 
@@ -45,6 +48,8 @@ pipeline{
                repository: '${NexusRepo}', 
                version: '${Version}'
 			}
+
+          }
 		
 		
 		}
