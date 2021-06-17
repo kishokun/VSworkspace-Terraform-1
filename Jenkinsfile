@@ -32,7 +32,18 @@ pipeline{
 		//Stage3 : publish the artifacts to Nexus
 		stage ('Publish to Nexus') {
 		    steps {
-			   nexusArtifactUploader artifacts: [[artifactId: 'KuruDevOpsLab', classifier: '', file: 'target/KuruDevOpsLab-0.0.3-SNAPSHOT.war', type: 'war']], credentialsId: '12b394cd-4b64-4fce-9e7b-2e9910b86ff4', groupId: 'com.kuru', nexusUrl: '172.20.10.144:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'KuruDevopslab-SNAPSHOT', version: '0.0.3-SNAPSHOT'
+			   nexusArtifactUploader artifacts: 
+               [[artifactId: 'KuruDevOpsLab', 
+               classifier: '', 
+               file: 'target/KuruDevOpsLab-0.0.3-SNAPSHOT.war', 
+               type: 'war']], 
+               credentialsId: '12b394cd-4b64-4fce-9e7b-2e9910b86ff4', 
+               groupId: 'com.kuru', 
+               nexusUrl: '172.20.10.144:8081', 
+               nexusVersion: 'nexus3', 
+               protocol: 'http', 
+               repository: 'KuruDevopslab-SNAPSHOT', 
+               version: '0.0.3-SNAPSHOT'
 			}
 		
 		
@@ -50,7 +61,7 @@ pipeline{
 
 		
 		
-		// Stage4 : Deploy
+		// Stage5 : Deploy
         stage ('Deploy'){
             steps {
                 echo ' Deploying......'
