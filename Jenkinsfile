@@ -34,19 +34,19 @@ pipeline{
 		    steps {
                 script {
 
-               def NexusRepo = Version.endsWith("SNAPSHOT") ? "KurusDevOpsLab-SNAPSHOT" : "KurusDevOpsLab-RELEASE"
-               
+               def NexusRepo = Version.endsWith("SNAPSHOT") ? "KuruDevOpsLab-SNAPSHOT" : "KuruDevOpsLab-RELEASE"
+
 			   nexusArtifactUploader artifacts: 
                [[artifactId: "${ArtifactId}", 
                classifier: '', 
-               file: 'target/${ArtifactId}-${Version}.war', 
+               file: "target/${ArtifactId}-${Version}.war", 
                type: 'war']], 
                credentialsId: '12b394cd-4b64-4fce-9e7b-2e9910b86ff4', 
-               groupId: '${GroupId}', 
+               groupId: "${GroupId}", 
                nexusUrl: '172.20.10.144:8081', 
                nexusVersion: 'nexus3', 
                protocol: 'http', 
-               repository: '${NexusRepo}', 
+               repository: "${NexusRepo}", 
                version: '${Version}'
 			}
 
