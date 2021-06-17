@@ -67,8 +67,8 @@ pipeline{
 
 		
 		
-		// Stage5 : Deploy
-        stage ('Deploy'){
+		// Stage 5 :Deploy the build artifact to tomcar
+        stage ('Deploy to Tomcat'){
             steps {
                 echo ' Deploying......'
                 sshPublisher(publishers: 
@@ -90,6 +90,32 @@ pipeline{
 
             }
         }
+
+        // Stage 6 : Deploy the build artifact to docker
+        stage ('Deploy to Docker'){
+            steps {
+                echo ' Deploying......'
+                sshPublisher(publishers: 
+                [sshPublisherDesc(configName: 'Ansible_controller_jenkins', 
+                transfers: 
+                [sshTransfer(cleanRemote: false, excludes: '', 
+                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_docker.yaml -i /opt/playbooks/hosts', 
+                execTimeout: 120000, 
+                flatten: false, 
+                makeEmptyDirs: false, 
+                noDefaultExcludes: false, 
+                patternSeparator: '[, ]+', 
+                remoteDirectory: '', 
+                remoteDirectorySDF: false, 
+                removePrefix: '', sourceFiles: '')], 
+                usePromotionTimestamp: false, 
+                useWorkspaceInPromotion: false, 
+                verbose: false)])
+
+            }
+        }
+
+        
 
 
 
