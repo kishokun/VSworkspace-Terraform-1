@@ -86,7 +86,7 @@ pipeline{
                 removePrefix: '', sourceFiles: '')], 
                 usePromotionTimestamp: false, 
                 useWorkspaceInPromotion: false, 
-                verbose: false)])
+                verbose: true)])
 
             }
         }
@@ -110,7 +110,7 @@ pipeline{
                 removePrefix: '', sourceFiles: '')], 
                 usePromotionTimestamp: false, 
                 useWorkspaceInPromotion: false, 
-                verbose: false)])
+                verbose: true)])
 
             }
         }
