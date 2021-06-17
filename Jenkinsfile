@@ -33,17 +33,17 @@ pipeline{
 		stage ('Publish to Nexus') {
 		    steps {
 			   nexusArtifactUploader artifacts: 
-               [[artifactId: 'KuruDevOpsLab', 
+               [[artifactId: "${ArtifactId}", 
                classifier: '', 
-               file: 'target/KuruDevOpsLab-0.0.3-SNAPSHOT.war', 
+               file: 'target/${ArtifactId}-${Version}.war', 
                type: 'war']], 
                credentialsId: '12b394cd-4b64-4fce-9e7b-2e9910b86ff4', 
-               groupId: 'com.kuru', 
+               groupId: '${GroupId}', 
                nexusUrl: '172.20.10.144:8081', 
                nexusVersion: 'nexus3', 
                protocol: 'http', 
-               repository: 'KuruDevopslab-SNAPSHOT', 
-               version: '0.0.3-SNAPSHOT'
+               repository: '${NexusRepo}', 
+               version: '${Version}'
 			}
 		
 		
