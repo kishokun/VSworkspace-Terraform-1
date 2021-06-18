@@ -76,7 +76,7 @@ pipeline{
 
 		
 		
-		Stage 5 :Deploy the build artifact to tomcar
+		//Stage 6 :Deploy the build artifact to tomcar
         stage ('Deploy to Tomcat'){
             steps {
                 echo ' Deploying to tomcat node......'
