@@ -81,7 +81,7 @@ pipeline{
             steps {
                 echo ' Deploying to tomcat node......'
                 sshPublisher(publishers: 
-                [sshPublisherDesc(configName: 'Ansible_controller_jenkins', 
+                [sshPublisherDesc(configName: 'Ansible_Controller', 
                 transfers: 
                 [sshTransfer(cleanRemote: false, excludes: '', 
                 execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy.yaml -i /opt/playbooks/hosts', 
