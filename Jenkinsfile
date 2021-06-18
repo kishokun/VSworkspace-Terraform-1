@@ -97,8 +97,8 @@ pipeline{
                 useWorkspaceInPromotion: false, 
                 verbose: true)])
 
-            }
-        }
+        //     }
+        // }
 
         // // Stage 6 : Deploy the build artifact to docker
         // stage ('Deploy to Docker'){
