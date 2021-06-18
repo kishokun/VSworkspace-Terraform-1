@@ -34,16 +34,16 @@ pipeline{
 		    steps {
                 script {
 
-               def NexusRepo = Version.endsWith("SNAPSHOT") ? "KuruDevopslab-SNAPSHOT" : "KuruDevopsLab-RELEASE"
+               def NexusRepo = Version.endsWith("SNAPSHOT") ? "KuruDevOpsLab-SNAPSHOT" : "KuruDevOpsLab-RELEASE"
 
 			   nexusArtifactUploader artifacts: 
                [[artifactId: "${ArtifactId}", 
                classifier: '', 
                file: "target/${ArtifactId}-${Version}.war", 
                type: 'war']], 
-               credentialsId: '12b394cd-4b64-4fce-9e7b-2e9910b86ff4', 
+               credentialsId: '30255ee1-263c-4492-afbc-1d6eeea89848', 
                groupId: "${GroupId}", 
-               nexusUrl: '172.20.10.144:8081', 
+               nexusUrl: '172.20.10.43:8081', 
                nexusVersion: 'nexus3', 
                protocol: 'http', 
                repository: "${NexusRepo}", 
@@ -65,55 +65,64 @@ pipeline{
             }
         }
 
+        // Stage 5 :Deploy
+        stage ('Deploy'){
+            steps {
+                   echo 'deploying.........................'
+                  
+            }
+        }
+
+
 		
 		
 		// Stage 5 :Deploy the build artifact to tomcar
-        stage ('Deploy to Tomcat'){
-            steps {
-                echo ' Deploying......'
-                sshPublisher(publishers: 
-                [sshPublisherDesc(configName: 'Ansible_controller_jenkins', 
-                transfers: 
-                [sshTransfer(cleanRemote: false, excludes: '', 
-                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy.yaml -i /opt/playbooks/hosts', 
-                execTimeout: 120000, 
-                flatten: false, 
-                makeEmptyDirs: false, 
-                noDefaultExcludes: false, 
-                patternSeparator: '[, ]+', 
-                remoteDirectory: '', 
-                remoteDirectorySDF: false, 
-                removePrefix: '', sourceFiles: '')], 
-                usePromotionTimestamp: false, 
-                useWorkspaceInPromotion: false, 
-                verbose: true)])
+        // stage ('Deploy to Tomcat'){
+        //     steps {
+        //         echo ' Deploying......'
+        //         sshPublisher(publishers: 
+        //         [sshPublisherDesc(configName: 'Ansible_controller_jenkins', 
+        //         transfers: 
+        //         [sshTransfer(cleanRemote: false, excludes: '', 
+        //         execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy.yaml -i /opt/playbooks/hosts', 
+        //         execTimeout: 120000, 
+        //         flatten: false, 
+        //         makeEmptyDirs: false, 
+        //         noDefaultExcludes: false, 
+        //         patternSeparator: '[, ]+', 
+        //         remoteDirectory: '', 
+        //         remoteDirectorySDF: false, 
+        //         removePrefix: '', sourceFiles: '')], 
+        //         usePromotionTimestamp: false, 
+        //         useWorkspaceInPromotion: false, 
+        //         verbose: true)])
 
-            }
-        }
+        //     }
+        // }
 
-        // Stage 6 : Deploy the build artifact to docker
-        stage ('Deploy to Docker'){
-            steps {
-                echo ' Deploying......'
-                sshPublisher(publishers: 
-                [sshPublisherDesc(configName: 'Ansible_controller_jenkins', 
-                transfers: 
-                [sshTransfer(cleanRemote: false, excludes: '', 
-                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_docker.yaml -i /opt/playbooks/hosts', 
-                execTimeout: 120000, 
-                flatten: false, 
-                makeEmptyDirs: false, 
-                noDefaultExcludes: false, 
-                patternSeparator: '[, ]+', 
-                remoteDirectory: '', 
-                remoteDirectorySDF: false, 
-                removePrefix: '', sourceFiles: '')], 
-                usePromotionTimestamp: false, 
-                useWorkspaceInPromotion: false, 
-                verbose: true)])
+        // // Stage 6 : Deploy the build artifact to docker
+        // stage ('Deploy to Docker'){
+        //     steps {
+        //         echo ' Deploying......'
+        //         sshPublisher(publishers: 
+        //         [sshPublisherDesc(configName: 'Ansible_controller_jenkins', 
+        //         transfers: 
+        //         [sshTransfer(cleanRemote: false, excludes: '', 
+        //         execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_docker.yaml -i /opt/playbooks/hosts', 
+        //         execTimeout: 120000, 
+        //         flatten: false, 
+        //         makeEmptyDirs: false, 
+        //         noDefaultExcludes: false, 
+        //         patternSeparator: '[, ]+', 
+        //         remoteDirectory: '', 
+        //         remoteDirectorySDF: false, 
+        //         removePrefix: '', sourceFiles: '')], 
+        //         usePromotionTimestamp: false, 
+        //         useWorkspaceInPromotion: false, 
+        //         verbose: true)])
 
-            }
-        }
+        //     }
+        // }
 
         
 
